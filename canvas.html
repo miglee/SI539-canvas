@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Canvas</title>
+	<script type="text/javascript">
+
+		var size=2;
+		var color="#000000";
+		var flag=false;
+		var canvas_x = "0";
+		var canvas_y="0";
+		var canvas=false;
+		var ctx=false;
+
+		function startGame() {
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			canvas.addEventListener("mousedown",function(e) {input("down",e)},false);
+			canvas.addEventListener("mousemove",function(e) {input("move",e)},false);
+			canvas.addEventListener("mouseup",function(e) {input("up",e)},false);
+			canvas.addEventListener("mouseout",function(e) {input("out",e)},false);
+			document.addEventListener("keydown",function(e) {input("key",e)},false);
+
+			
+		}
+			function input(event,e) {
+				if (event=="down") {
+					flag=true;
+					canvas_x = e.pageX;
+					canvas_y = e.pageY;
+					console.log("xy:",canvas_x,canvas_y);
+					console.log("flag:",flag);
+				};
+				if (event=="move") {
+					canvas_x = e.pageX;
+					canvas_y = e.pageY;
+					// console.log("xy:",canvas_x,canvas_y);
+					// console.log("moving");
+					console.log("flag",flag);
+
+				};
+				if (event=="up") {
+					flag=false;
+					canvas_x = e.pageX;
+					canvas_y = e.pageY;
+					// console.log("xy:",canvas_x,canvas_y);
+					console.log("flag",flag);
+				};
+
+								if (event=="out") {
+					flag=false;
+					canvas_x = e.pageX;
+					canvas_y = e.pageY;
+					console.log("xy:",canvas_x,canvas_y);
+					console.log("flag",flag);
+				};
+
+					if (event=="key") {
+							console.log(e.keyCode);
+							  switch(e.keyCode){
+
+        						// space
+        						case 32:
+        						clear();
+
+           						 break;
+           						 // up arrow
+        						case 38:
+        						console.log("up arrow");
+        						sizeUp();
+
+            					break;
+            					 // down arrow
+        						case 40:
+        						sizeDown();
+
+            					break;
+
+// yellow
+        						case 89:
+
+        						changeColor("yellow");
+        						console.log("color changed");
+
+           						 break;
+
+           						 break;
+        						// g
+        						case 71:
+        						changeColor("green");
+
+           						 break; 
+        						// r
+        						case 82:
+        						changeColor("red");
+
+           						 break;
+
+           						         						// b
+        						case 66:
+        						changeColor("blue");
+
+           						 break;
+    }
+				};
+				draw();
+			}
+
+
+				function draw() {
+					if (flag==true) {
+									var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+				ctx.beginPath();
+				ctx.arc(canvas_x, canvas_y, size, 0, 2 * Math.PI);
+				ctx.fillStyle = color;
+				ctx.fill();
+				ctx.strokeStyle = color;
+				ctx.stroke();
+				console.log("draw");}	
+		}
+
+		function sizeUp() {
+			size++;
+		} 
+
+				function sizeDown() {
+			size--;
+			if (size<0){
+				size=1
+			}
+		} 
+
+		function changeColor(colorcode) {
+			color=colorcode;
+		} 
+		function clear() {
+			var canvas = document.getElementById("canvas");
+			var ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, 800, 500);
+		}
+
+
+
+
+	</script>
+</head>
+<body onLoad="startGame()">
+	<canvas id="canvas" width="800" height="500" style="border:1px solid #000000;">
+		
+	</canvas>
+
+</body>
+</html>
